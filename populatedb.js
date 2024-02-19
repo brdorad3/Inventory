@@ -10,7 +10,6 @@ console.log(
   const Items = require("./models/items");
   const Category = require("./models/category");
   
-  
  const items = [];
  const categories = [];
   
@@ -30,10 +29,6 @@ console.log(
     console.log("Debug: Closing mongoose");
     mongoose.connection.close();
   }
-  
-  // We pass the index to the ...Create functions so that, for example,
-  // genre[0] will always be the Fantasy genre, regardless of the order
-  // in which the elements of promise.all's argument complete.
   async function categoryCreate(index, name, desc) {
     const category = new Category({ name: name, desc:desc });
     await category.save();
@@ -44,9 +39,7 @@ console.log(
   async function itemsCreate(index, name, desc, price, stock, genre) {
         const itemdetail = { name: name, desc: desc, price:price, stock: stock };
         if (genre != false) itemdetail.genre = genre;
-      
         const item = new Items(itemdetail);
-      
         await item.save();
     items[index] = item;
     console.log(`Added items: ${name} ${price}`);
@@ -112,5 +105,3 @@ console.log(
     
     ]);
   }
-  
-  

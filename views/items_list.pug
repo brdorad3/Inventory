@@ -4,4 +4,8 @@ block content
   h1 Items List
   ul
     each item in items
-      li #{item.name} - #{item.desc} - #{item.price} - #{item.stock}
+      if item.name
+       li 
+        a(href=item.url) #{item.name} - #{item.price} - #{item.stock}
+  
+  a.blue(href="/items/items_list/create") Add new item 
