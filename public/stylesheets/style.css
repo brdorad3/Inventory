@@ -27,3 +27,15 @@ ul, li{
   font-size: 15px;
   color: hotpink;
 }
+.block{display:flex;
+flex-direction: column;
+align-items: flex-start;
+}
+.flex{
+  display: flex;
+  align-items: center;
+}
+.no{
+  padding: 0px;
+  margin: 0px 0px 5px 0px;
+}

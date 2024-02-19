@@ -15,7 +15,7 @@ res.render("items_list", {items:allItems});
 
 exports.items_detail = asyncHandler(async (req, res, next) => {
     try {
-      const item = await Items.findById(req.params.id).exec();
+      const item = await Items.findById(req.params.id).populate('genre').exec();
       if (!item) {
         // Handle case where item is not found
         return res.status(404).send('Item not found');
@@ -34,7 +34,7 @@ exports.items_create_get = asyncHandler(async(req,res,next)=>{
            await Items.find().sort({name:1}).exec(),
            await Category.find().sort({name:1}).exec()
           ])
-          res.render("items_create", { item: items, categories: allCategories });
+          res.render("items_create", { items: items, categories: allCategories });
         } catch (err) {
           return next(err);
         }

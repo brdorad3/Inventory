@@ -1,6 +1,31 @@
 extends layout
 
 block content
-  h1 Create Item
-  for it in item
-    p #{it.name}
+  h1 #{title}
+  form(method="POST")
+    div.block
+      label(for="name") Name: 
+      input(type="text", name="name" required value=(item===undefined?'': item.name) placeholder="Fortnite" )
+    div.block
+      label(for="desc") Description: 
+      textarea(name="desc", cols="20", rows="5", required placeholder="Very fun battle royale game" value=(item===undefined?'': item.price)) 
+    div.block
+      label(for="price") Price: 
+      input(type="number", name="price" required value=(item===undefined?'': item.price) placeholder="4.99" )
+    div.block
+      label(for="stock") Stock: 
+      input(type="number", name="stock" required value=(item===undefined?'': item.stock) placeholder="7" )
+    div.block
+      p Categories: 
+      p.no Select all that apply!
+      for genre in categories
+        if genre.checked
+          div.flex
+            label(for=genre._id) &nbsp;#{genre.name}
+            input(type="checkbox", name="genre", value=genre._id, id=genre._id checked)
+        else
+          div.flex
+            label(for=genre._id) &nbsp;#{genre.name}
+            input(type="checkbox", name="genre", value=genre._id, id=genre._id)
+    button(type='submit') Submit
+  
