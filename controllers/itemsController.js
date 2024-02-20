@@ -77,7 +77,7 @@ exports.items_create_post = [
         res.render("items_create", {
           title: "Create Items",
           items: allItems,
-          genres: allCategories,
+          categories: allCategories,
           item: item,
           errors: errors.array(),
         });
@@ -86,4 +86,72 @@ exports.items_create_post = [
         res.redirect(item.url);
       }
     }),     
-]
+];
+
+exports.items_delete_get = asyncHandler(async(req, res, next)=>{
+  res.render("items_delete");
+});
+exports.items_delete_post = asyncHandler(async(req, res, next)=>{
+await Items.findByIdAndDelete(req.params.id).exec();
+res.redirect("/items/items_list");
+});
+
+exports.items_update_get = asyncHandler(async(req, res, next)=>{
+  try {
+    const [items, allCategories] = await Promise.all([
+     await Items.find().sort({name:1}).exec(),
+     await Category.find().sort({name:1}).exec()
+    ])
+    res.render("items_create", { title:"Update item", items: items, categories: allCategories });
+  } catch (err) {
+    return next(err);
+  }
+});
+exports.items_update_post = [
+  (req, res, next) => {
+      if (!Array.isArray(req.body.genre)) {
+        req.body.genre =
+          typeof req.body.genre === "undefined" ? [] : [req.body.genre];
+      }
+      next();
+    },
+    body("name", "title must not be empty").trim().isLength({min:1}).escape(),
+    body("desc", "desc must not be empty").trim().isLength({min:1}).escape(),
+    body("price", "price must not be empty").trim().isLength({min:1}).escape(),
+    body("stock", "stock must not be empty").trim().isLength({min:1}).escape(),
+    body("genre.*").escape(),
+
+    asyncHandler(async (req, res, next) => {
+      const errors = validationResult(req);
+  const item = new Items({
+      name:req.body.name,
+      desc:req.body.desc,
+      price: req.body.price,
+      stock: req.body.stock,
+      genre: typeof req.body.genre === "undefined" ? [] : req.body.genre,
+      _id: req.params.id,
+  });
+  if (!errors.isEmpty()) {
+      const [allItems, allCategories] = await Promise.all([
+        Items.find().sort({ name: 1 }).exec(),
+        Category.find().sort({ name: 1 }).exec(),
+      ]);
+
+      for (const genre of allCategories) {
+        if (item.genre.indexOf(genre._id) > -1) {
+          genre.checked = "true";
+        }
+      }
+      res.render("items_create", {
+        title: "Update Items",
+        items: allItems,
+        categories: allCategories,
+        item: item,
+        errors: errors.array(),
+      });
+    } else {
+      await Items.findByIdAndUpdate(req.params.id, item, {})
+      res.redirect(item.url);
+    }
+  }),     
+];
