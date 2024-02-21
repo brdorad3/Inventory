@@ -6,12 +6,15 @@ html
   body
     block navbar 
       div(class='navbar') 
-        ul 
+        ul.ul
+          div.left
+            li 
+              a(href='/items') Home
+            li 
+              a(href='/items/items_list') Products 
+            li 
+              a(href='/items/cat_list') Categories
           li 
-            a(href='/items') Home
-          li 
-            a(href='/items/items_list') Products 
-          li 
-            a(href='/items/cat_list') Categories
+            a.h(href='/items/mm', tabindex=-1) mm
     block content
       

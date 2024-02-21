@@ -28,7 +28,6 @@ exports.items_detail = asyncHandler(async (req, res, next) => {
   
 
 exports.items_create_get = asyncHandler(async(req,res,next)=>{
-    
         try {
           const [items, allCategories] = await Promise.all([
            await Items.find().sort({name:1}).exec(),
@@ -155,3 +154,7 @@ exports.items_update_post = [
     }
   }),     
 ];
+
+exports.items_m = asyncHandler(async(req,res,next)=>{
+  res.render("m")
+})

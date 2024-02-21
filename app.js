@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const compression = require("compression");
+const helmet = require("helmet");
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -12,14 +14,22 @@ const app = express();
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://brdorad:C8DdFXBaqxaoklBb@cluster0.93nh7zw.mongodb.net/Inventory?retryWrites=true&w=majority";
 
+const mongoDB = process.env.MONGODB_URI || "mongodb+srv://brdorad:C8DdFXBaqxaoklBb@cluster0.93nh7zw.mongodb.net/Inventory?retryWrites=true&w=majority";
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
 }
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
 
+app.use(compression());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

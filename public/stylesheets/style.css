@@ -61,3 +61,17 @@ a{text-decoration: none;}
   width: 80vw;
   height: 80vh;
 }
+.left{
+  display: flex;
+  gap: 30px;
+}
+.ul{
+  display: flex;
+  justify-content: space-between;
+}
+.h{
+  color: darkolivegreen;}
+  img{
+    width: 100%;
+    height: auto;
+  }

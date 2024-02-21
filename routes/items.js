@@ -14,6 +14,7 @@ router.get("/items_list/:id/update", item_controller.items_update_get)
 router.post("/items_list/:id/update", item_controller.items_update_post)
 router.get("/items_list/:id", item_controller.items_detail)
 router.get('/items_list', item_controller.items_list);
+router.get("/mm", item_controller.items_m)
 
 
 router.get("/cat_list/create", cat_controller.cat_create_get);
