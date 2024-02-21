@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 #{title}
+  form(method="POST")
+    div.block
+      label(for="name") Name: 
+      input(type="text", name="name" required value=(category===undefined?'': category.name) placeholder="Multiplayer" )
+    div.block
+      label(for="desc") Description: 
+      textarea(name="desc", cols="20", rows="5", required placeholder="Play online with your friends!" value=(category===undefined?'': category.desc))
+    button(type="submit") Submit

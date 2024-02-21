@@ -6,6 +6,6 @@ block content
     each item in items
       if item.name
        li 
-        a(href=item.url) #{item.name} - #{item.price} - #{item.stock}
+        a(href=item.url) #{item.name} - $#{item.price} - #{item.stock} in stock
   
-  a.blue(href="/items/items_list/create") Add new item 
+  a(href="/items/items_list/create") Add new item 

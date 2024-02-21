@@ -1,0 +1,9 @@
+extends layout 
+
+block content 
+    h1 #{categories.name}
+    div.gamedesc
+        p #{categories.desc}
+    div.column
+        a(href=categories.url+"/delete").del Delete
+        a(href=categories.url+"/update").del Update

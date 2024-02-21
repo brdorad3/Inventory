@@ -7,7 +7,7 @@ block content
       if items.genre
          p 
             each category in items.genre
-               | #{category.name}, 
+               a(href=category.url) #{category.name}, 
    p Price: $#{items.price}
    p In-stock: #{items.stock}
    div.column

@@ -53,3 +53,11 @@ align-items: flex-start;
   justify-content: center;
   gap: 10px;
 }
+a{text-decoration: none;}
+.blue{color: rgb(68, 156, 233);
+  font-size: 1.5rem;
+}
+.big{
+  width: 80vw;
+  height: 80vh;
+}
